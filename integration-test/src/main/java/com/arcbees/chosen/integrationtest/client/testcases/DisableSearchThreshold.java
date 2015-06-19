@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 ArcBees Inc.
+ * Copyright 2014 ArcBees Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -17,18 +17,16 @@
 package com.arcbees.chosen.integrationtest.client.testcases;
 
 import com.arcbees.chosen.client.ChosenOptions;
+import com.arcbees.chosen.integrationtest.client.domain.CarBrand;
 
-public class AllowSingleDeselect extends SimpleValueListBox {
-    public static final String PLACEHOLDER = "Some placeholder";
-
-    public AllowSingleDeselect() {
-        super(createChosenOption(), true);
+public class DisableSearchThreshold extends SimpleValueListBox {
+    public DisableSearchThreshold() {
+        super(createChosenOption(), false);
     }
 
     private static ChosenOptions createChosenOption() {
         ChosenOptions chosenOptions = new ChosenOptions();
-        chosenOptions.setPlaceholderText(PLACEHOLDER);
-        chosenOptions.setAllowSingleDeselect(true);
+        chosenOptions.setDisableSearchThreshold(CarBrand.values().length + 1);
         return chosenOptions;
     }
 }

@@ -17,8 +17,11 @@
 package com.arcbees.chosen.integrationtest.client.domain;
 
 import com.google.gwt.text.shared.AbstractRenderer;
+import com.google.gwt.text.shared.Renderer;
 
 public class DefaultCarRenderer extends AbstractRenderer<CarBrand> {
+    public static final Renderer<CarBrand> RENDERER = new DefaultCarRenderer();
+
     @Override
     public String render(CarBrand object) {
         if (object == null) {

@@ -186,7 +186,9 @@ public class ChosenImpl {
                 chosen.winnowResultsSetHighlight();
             }
 
-            chosen.positionDropdownResult();
+            if (isShowing) {
+                chosen.positionDropdownResult();
+            }
         }
     }
 
@@ -1199,7 +1201,7 @@ public class ChosenImpl {
 
     private void resultsSearch() {
         if (resultsShowing) {
-            winnowResults(false);
+            winnowResults(resultsShowing);
         } else {
             resultsShow();
         }
@@ -1250,7 +1252,10 @@ public class ChosenImpl {
                 ddTop = positionAbove();
                 break;
             case AUTO:
-                if (options.getDropdownBoundaries() == null && options.getDropdownBoundariesProvider() == null) {
+                if (container.hasClass(css.resultAbove())) {
+                    // if dropdown is already above, let it there.
+                    ddTop = positionAbove();
+                } else if (options.getDropdownBoundaries() == null && options.getDropdownBoundariesProvider() == null) {
                     ddTop = positionRelativeToWindow();
                 } else {
                     ddTop = positionRelativeToBoundaries();
@@ -1485,6 +1490,7 @@ public class ChosenImpl {
         containerId = buildContainerId();
         fWidth = $selectElement.outerWidth();
 
+        isRTL = LocaleInfo.getCurrentLocale().isRTL() || $selectElement.hasClass("chzn-rtl");
         // Temporary fix. IIf the select element is inside a hidden container
         // GQuery cannot get the size of the select element.
         if (fWidth == 0) {
@@ -1498,8 +1504,6 @@ public class ChosenImpl {
             tempDiv.remove();
             isHidden = fWidth > 0;
         }
-
-        isRTL = LocaleInfo.getCurrentLocale().isRTL() || $selectElement.hasClass("chzn-rtl");
 
         String cssClasses = isRTL ? css.chznContainer() + " " + css.chznRtl() : css.chznContainer();
 
